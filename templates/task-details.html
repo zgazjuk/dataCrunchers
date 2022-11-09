@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Details</title>
+
+    <link rel="stylesheet" href="../static/css/global.css">
+    <link rel="stylesheet" href="../static/css/task-details.css">
+</head>
+<body>
+    
+    <!-- Navbar -->
+    <div class="nav-top">
+        <nav class="nav-new">
+            <div class="nav-left">
+                <a href="#" class="nav-logo-link">
+                    <p class="nav-logo">logo</p>
+                </a>
+                <p class="nav-title">CRUNCH</p>
+            </div>
+            <div class="nav-right">
+                <ul class="user-nav">
+                    <li><a href="#" class="user-nav-link">Login</a></li>
+                    <li><a href="#" class="user-nav-link">Sign-up</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div id="nav-bottom">
+        <div class="table">
+          <ul id="site-nav">
+            <li><a href="../templates/dashboard.html" class="nav-bottom-option">Dashboard</a></li>
+            <li><a href="#" class="nav-bottom-option">Create New Task</a></li>
+          </ul>
+        </div>
+    </div>
+
+    <!-- Task details content section -->
+    <div id="task-details-main">
+        <div id="task-details-card">
+            <h1 class="task-details-title">Example Task 1</h1>
+            <h3 class="task-details-section-header">Details:</h3>
+            <div class="task-details-bodytext">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+            <h3 class="task-details-section-header">Comments:</h3>
+            <div class="task-details-comments">
+                placeholder for comments section/functionality
+            </div>
+            <div class="task-details-buttons-row">
+                <a href="#" class="task-details-button">Edit Task</a>
+                <form class="task-details-form" action="#" method="#">
+                    <label for="task-details-moveto" class="task-details-moveto-label">Move to...</label>
+                    <select name="task-details-moveto" class="task-details-moveto">
+                        <option class="task-details-move-option" value="todo">To-do</option>
+                        <option class="task-details-move-option" value="in-development">In Development</option>
+                        <option class="task-details-move-option" value="in-review">In Review</option>
+                        <option class="task-details-move-option" value="completed">Completed</option>
+                    </select>
+                </form>
+                <a class="task-details-button" href="../templates/dashboard.html">Return to Dashboard</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p class="footer-text">&copy; dataCrunchers Inc. 2022</p>
+    </footer>
+</body>
+</html>
