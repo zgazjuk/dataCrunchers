@@ -1,0 +1,70 @@
+#dashboard-main {
+    background: rgb(223,235,255);
+    background: radial-gradient(circle, rgba(223,235,255,1) 50%, rgba(0,88,143,0.6278886554621849) 100%);
+    min-height: 75vh;
+}
+
+.dashboard-categories-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.dashboard-category-title {
+    margin: 3% 0;
+}
+
+.dashboard-category {
+    background-color: rgb(0, 88, 143, 0.7);
+    color: #fff;
+    width: 30em;
+    height: 50vh;
+    border-radius: 12px;
+    padding-left: 1%;
+    padding-right: 1%;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 3%;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.task-card {
+    text-align: left;
+    color: #000;
+    padding: 1.5em 1.5em;
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
+    border-style: none;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-color: rgba(240, 241, 255, 0.664); 
+    transition: all 0.15s ease 0s;
+}
+
+.task-card:hover {
+    background-color: rgba(204, 207, 255, 0.452); 
+    backdrop-filter: blur(5px);
+    box-shadow: rgba(0, 0, 0, 0.75) 3px 10px 17px;
+    transition: all 0.15s ease 0s;
+}
+
+.task-card-title {
+    text-align: left;
+    width: 100%;
+    padding-bottom: 0.3rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid black;
+}
+
+.task-card-details {
+    margin: 1rem 0;
+}
+
+.task-card-form {
+    border-top: 1px solid black;
+    padding-top: 0.3rem;
+    margin-top: 1rem;
+    text-align: right;
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUNCH</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="nav-top">
+        <nav class="nav-new">
+            <div class="nav-left">
+                <a href="#" class="nav-logo-link">
+                    <p class="nav-logo">logo</p>
+                </a>
+                <p class="nav-title">CRUNCH</p>
+            </div>
+            <div class="nav-right">
+                <ul class="user-nav">
+                    <li><a href="#" class="user-nav-link">Login</a></li>
+                    <li><a href="#" class="user-nav-link">Sign-up</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div id="nav-bottom">
+        <div class="table">
+          <ul id="site-nav">
+            <li><a href="#" class="nav-bottom-option">> Dashboard</a></li>
+            <li><a href="#" class="nav-bottom-option">Create New Task</a></li>
+          </ul>
+        </div>
+    </div>
+
+    <!-- Dashboard main content; stories/tasks, etc -->
+    <div id="dashboard-main">
+        <div class="dashboard-categories-wrapper">
+            <div class="dashboard-category">
+                <h3 class="dashboard-category-title">
+                    To-do
+                </h3>
+                <div class="task-card">
+                    <h4 class="task-card-title">Example Task 1</h4>
+                    <p class="task-card-details">Example Task 1 description blah blah blah blah fasgdf asdf asdklhasdkfjhdasklfhds asdfkj hsadfl sdklfj sdaf;l kjsdfl; kj</p>
+                    <form class="task-card-form" action="#" method="#">
+                        <label for="task-card-moveto" class="task-card-moveto-label">Move to...</label>
+                        <select name="task-card-moveto" class="task-card-moveto">
+                            <option class="task-card-moveto-option" value="todo">To-do</option>
+                            <option class="task-card-moveto-option" value="in-development">In Development</option>
+                            <option class="task-card-moveto-option" value="in-review">In Review</option>
+                            <option class="task-card-moveto-option" value="completed">Completed</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+            <div class="dashboard-category">
+                <h3 class="dashboard-category-title">
+                    In Development
+                </h3>
+            </div>
+            <div class="dashboard-category">
+                <h3 class="dashboard-category-title">
+                    In Review
+                </h3>
+            </div>
+            <div class="dashboard-category">
+                <h3 class="dashboard-category-title">
+                    Completed
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p class="footer-text">&copy; dataCrunchers Inc. 2022</p>
+    </footer>
+</body>
+</html>

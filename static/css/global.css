@@ -1,0 +1,157 @@
+/* Contains CSS for common features of the site (navbar, headers, footers, etc) */
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+/* Navigation bar */
+
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Rubik', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-top {
+    width: 100%;
+    font-family: 'Rubik', sans-serif;
+    background-color: #202020;
+    color: #fff;
+}
+
+.nav-left {
+    display: flex;
+    text-align: center;
+    width: 100%;
+    height: 100px;
+}
+
+.nav-logo-link {
+    font-size: 2em;
+    text-align: center;
+    display: flex;
+    width: 7.5%;
+    padding-left: 2.5%;
+    line-height: 100px;
+    text-decoration: none;
+    color: #fff;
+    /* transition: all 0.15s ease 0s; */
+}
+
+.nav-logo-link:hover {
+    color: rgb(77, 184, 250);
+    transition: all 0.15s ease 0s;
+}
+
+.nav-left .nav-title {
+    font-size: 3.5em;
+    line-height: 100px;
+}
+
+.nav-right {
+    background-color: #fff;
+    color: #000;
+    float: right;
+    width: 100%;
+    height: 50px;
+}
+
+.user-nav {
+    display: flex;
+    float: right;
+    list-style-type: none;
+}
+
+.user-nav-link {
+    padding: 20px 50px;
+    text-decoration: none;
+    line-height: 50px;
+    color: #000;
+    font-size: larger;
+    transition: all 0.15s ease 0s;
+}
+
+.user-nav-link:hover {
+    background-color: rgb(0, 88, 143);
+    color: #fff;
+    transition: all 0.15s ease 0s;
+    padding-right: 65px;
+}
+
+.nav-bottom {
+    width: 100%;
+    background-color: aqua;
+    height: 50px;
+}
+
+.site-nav {
+    display: inline;
+    height: 50px;
+    float: left;
+}
+
+#nav-bottom {
+	height: 84px;
+    color: #fff;
+}
+
+.table {
+	display: table;
+	margin: 0 auto;
+    background-color: rgb(0, 88, 143);
+    float: left;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    color: #fff;
+}
+
+ul#site-nav {
+	list-style-type: none;
+    padding-left: 5%;
+    color: #fff;
+	}
+	ul#site-nav li {
+		display: inline;
+        text-decoration: none;
+        color: #fff;
+	}
+
+.nav-bottom-option {
+    color: #fff;
+    text-decoration: none;
+    padding: 20px 50px;
+    font-size: larger;
+    transition: all 0.15s ease 0s;
+}
+
+.nav-bottom-option:hover {
+    background-color: #fff;
+    color: #000;
+    transition: all 0.15s ease 0s;
+    padding-left: 65px;
+}
+
+/* Footer */
+.site-footer {
+    height: 7vh;
+    background-color: rgb(0, 88, 143);
+    align-items: center;
+    text-align: center;
+}
+
+.footer-text {
+    color: #fff;
+    padding-top: 27px;
+}
+
+.footer-links {
+    color: #fff;
+    padding-top: 15px;
+}
+
+.footer-link {
+    color: #fff;
+}
