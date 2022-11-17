@@ -30,7 +30,7 @@
         <div class="table">
           <ul id="site-nav">
             <li><a href="#" class="nav-bottom-option">> Dashboard</a></li>
-            <li><a href="#" class="nav-bottom-option">Create New Task</a></li>
+            <li><a href="new" class="nav-bottom-option">Create New Task</a></li>
           </ul>
         </div>
     </div>
@@ -42,9 +42,10 @@
                 <h3 class="dashboard-category-title">
                     To-do
                 </h3>
-                <a href="task-details.html" class="task-card-link-wrapper"><div class="task-card">
-                    <h4 class="task-card-title">Example Task 1</h4>
-                    <p class="task-card-details">Example Task 1 description blah blah blah blah fasgdf asdf asdklhasdkfjhdasklfhds asdfkj hsadfl sdklfj sdaf;l kjsdfl; kj</p>
+                {% for task in tasks %}
+                <a href="{{ url_for('get_task', task_id = task.id) }}" class="task-card-link-wrapper"><div class="task-card">
+                    <h4 class="task-card-title"> {{ task.name }} </h4>
+                    <p class="task-card-details"> {{ task.description }} </p>
                     <form class="task-card-form" action="#" method="#">
                         <label for="task-card-moveto" class="task-card-moveto-label">Move to...</label>
                         <select name="task-card-moveto" class="task-card-moveto">
@@ -55,6 +56,7 @@
                         </select>
                     </form>
                 </div></a>
+                {% endfor %}
             </div>
             <div class="dashboard-category">
                 <h3 class="dashboard-category-title">

@@ -39,21 +39,32 @@
 
     <!-- Task details content section -->
     <div id="task-details-main">
+      {% if task %}
+        <form action="{{ url_for('edit_task', task_id=task.id) }}" method="post">
+      {% else %}
+        <form action="new" method="post">
+      {% endif %}
         <div id="task-details-card">
-            <h1 class="task-details-title">{{ task.name }}</h1>
+            <h3 class="task-details-title"> Title: </h3>
+            <input type="text" name="name" value="{% if task %}{{task.name}}{% endif %}"/>
             <h3 class="task-details-section-header">Details:</h3>
-            <div class="task-details-bodytext">
-              {{ task.description }}
-            </div>
-            <h3 class="task-details-section-header">Comments:</h3>
+              <div class="task-details-bodytext">
+                <textarea name="description" rows="6" cols="0">
+                {% if task %}
+                  {{ task.description }}
+                {% endif %}
+                </textarea>
+              </div>
+              <h3 class="task-details-section-header">Comments:</h3>
             <div class="task-details-comments">
                 placeholder for comments section/functionality
             </div>
             <div class="task-details-buttons-row">
-                <a href="{{ url_for('edit_task', task_id=task.id) }}" class="task-details-button">Edit Task</a>
-                <form action="{{ url_for('delete_task', task_id=task.id) }}" method="post">
-                  <input class="task-details-button" type="submit" value="Delete">
-                </form>
+                {% if task %}
+                  <input type="submit" value="Save Task"/>
+                {% else %}
+                  <input type="submit" value="Add Task"/>
+                {% endif %}
                 <form class="task-details-form" action="#" method="#">
                     <label for="task-details-moveto" class="task-details-moveto-label">Move to...</label>
                     <select name="task-details-moveto" class="task-details-moveto">
@@ -65,6 +76,7 @@
                 </form>
                 <a class="task-details-button" href="/">Return to Dashboard</a>
             </div>
+          </form>
         </div>
     </div>
 
