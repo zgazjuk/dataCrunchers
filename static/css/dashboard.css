@@ -43,6 +43,7 @@
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     background-color: rgba(248, 249, 255, 0.753); 
     transition: all 0.15s ease 0s;
+    overflow-wrap: break-word;
 }
 
 .task-card-link-wrapper {
