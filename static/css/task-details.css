@@ -20,6 +20,7 @@
     backdrop-filter: blur(5px);
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     transition: all 0.35s ease 0s;
+    overflow-wrap: break-word;
 }
 
 .task-details-section-header {
