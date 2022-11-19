@@ -32,8 +32,9 @@ def new_task():
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
+        section = request.form['task-details-moveto']
 
-        new_record = Task(name, description, False, "")
+        new_record = Task(name, description, False, section)
         db.session.add(new_record)
         db.session.commit()
 
@@ -46,9 +47,11 @@ def edit_task(task_id):
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
+        section = request.form['task-details-moveto']
         task = db.session.query(Task).filter_by(id=task_id).one()
         task.name = name
         task.description = description
+        task.section = section
 
         db.session.add(task)
         db.session.commit()
