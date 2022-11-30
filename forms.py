@@ -33,3 +33,20 @@ class RegisterForm(FlaskForm):
         if db.session.query(User).filter_by(email=field.data).count() != 0:
             raise ValidationError('Email already in use.')
 
+
+class LoginForm(FlaskForm):
+    class Meta:
+        csrf = False
+
+    email = StringField('Email', [
+        Email(message='Not a valid email address.'),
+        DataRequired()])
+
+    password = PasswordField('Password', [
+        DataRequired(message="Please enter a password.")])
+
+    submit = SubmitField('Login')
+
+    def validate_email(self, field):
+        if db.session.query(User).filter_by(email=field.data).count() == 0:
+            raise ValidationError('Incorrect username or password.')

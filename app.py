@@ -10,6 +10,7 @@ from forms import RegisterForm
 from flask import session
 import bcrypt
 from models import User as User
+from forms import LoginForm
 
 
 app = Flask(__name__)
@@ -98,8 +99,28 @@ def create_account():
 
     return render_template('create_account.html', form=form)
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def user_login():
-    return render_template('user_login.html')
+    login_form = LoginForm()
+    # validate_on_submit only validates using POST
+    if login_form.validate_on_submit():
+        # we know user exists. We can use one()
+        the_user = db.session.query(User).filter_by(email=request.form['email']).one()
+        # user exists check password entered matches stored password
+        if bcrypt.checkpw(request.form['password'].encode('utf-8'), the_user.password):
+            # password match add user info to session
+            session['user'] = the_user.first_name
+            session['user_id'] = the_user.id
+            # render view
+            return redirect(url_for('dashboard'))
+
+        # password check failed
+        # set error message to alert user
+        login_form.password.errors = ["Incorrect username or password."]
+        return render_template("user_login.html", form=login_form)
+    else:
+        # form did not validate or GET request
+        return render_template("user_login.html", form=login_form)
+
 
 app.run(host=os.getenv('IP', '127.0.0.1'),port=int(os.getenv('PORT', 5000)),debug=True)
