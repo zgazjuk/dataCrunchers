@@ -6,12 +6,16 @@ from flask import request
 from flask import redirect, url_for
 from database import db
 from models import Task as Task
+from forms import RegisterForm
+from flask import session
+import bcrypt
+from models import User as User
+
 
 app = Flask(__name__)
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flask_task_app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
-
+app.config['SECRET_KEY'] = 'SE3155'
 db.init_app(app)
 
 with app.app_context():
@@ -66,5 +70,36 @@ def delete_task(task_id):
     db.session.commit()
 
     return redirect(url_for('dashboard'))
+
+@app.route('/signup', methods=['POST', 'GET'])
+def create_account():
+    form = RegisterForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        # salt and hash password
+        hash_password = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
+        # get entered user data
+        first_name = request.form['firstname']
+        print(first_name)
+        last_name = request.form['lastname']
+        print(last_name)
+        email = request.form['email']
+        print(email)
+        print(hash_password)
+        # create user model
+        new_user = User(first_name, last_name, email, hash_password)
+        # add user to database and commit
+        db.session.add(new_user)
+        db.session.commit()
+        # save the user's name to the session
+        # session['user'] = first_name
+        # session['user_id'] = new_user.id  # access id value from user model of this newly added user
+        # show user dashboard view
+        return redirect(url_for('dashboard'))
+
+    return render_template('create_account.html', form=form)
+
+@app.route('/login')
+def user_login():
+    return render_template('user_login.html')
 
 app.run(host=os.getenv('IP', '127.0.0.1'),port=int(os.getenv('PORT', 5000)),debug=True)
