@@ -74,11 +74,11 @@ def delete_task(task_id):
 
 @app.route('/signup', methods=['POST', 'GET'])
 def create_account():
-    form = RegisterForm()
+    form = RegisterForm() # getting a reference to the RegisterForm from forms.py
     if request.method == 'POST' and form.validate_on_submit():
         # salt and hash password
         hash_password = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-        # get entered user data
+        # getting entered user data
         first_name = request.form['firstname']
         print(first_name)
         last_name = request.form['lastname']
@@ -101,7 +101,7 @@ def create_account():
 
 @app.route('/login', methods=['GET', 'POST'])
 def user_login():
-    login_form = LoginForm()
+    login_form = LoginForm() # Getting refernece to the LoginForm from forms.py
     # validate_on_submit only validates using POST
     if login_form.validate_on_submit():
         # we know user exists. We can use one()
