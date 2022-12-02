@@ -1,5 +1,5 @@
 # dataCrunchers
-Team 12 Software Project
+Team 12 - ITSC-3155-101
 Team Members:
     Zach Gazjuk
     Erik Lewis

@@ -20,6 +20,7 @@
     backdrop-filter: blur(5px);
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     transition: all 0.35s ease 0s;
+    overflow-wrap: break-word;
 }
 
 .task-details-section-header {
@@ -27,8 +28,10 @@
     margin-bottom: 1%;
 }
 
+.task-details-moveto-label {
+}
+
 .task-details-button {
-    background-color: red;
     border-radius: 12px;
     background-color: rgb(8, 20, 88);
     padding: 1.3%;
@@ -38,6 +41,25 @@
     color: #fff;
     transition: all 0.35s ease 0s;
 }
+
+.task-details-button-delete {
+    border-radius: 12px;
+    background-color: rgb(214, 81, 90);
+    color: #fff;
+    text-decoration: none; 
+    backdrop-filter: blur(5px);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: all 0.35s ease 0s;
+    border-style: none;
+    padding: 0.75em;
+}
+
+.task-details-button-delete:hover {
+    transition: all 0.35s ease 0s;
+    box-shadow: rgba(0, 0, 0, 0.55) 0px 9px 16px;
+    background-color: rgb(255, 13, 29);
+}
+
 
 .task-details-button:hover {
     transition: all 0.35s ease 0s;

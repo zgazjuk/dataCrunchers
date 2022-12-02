@@ -32,7 +32,7 @@
         <div class="table">
           <ul id="site-nav">
             <li><a href="/" class="nav-bottom-option">Dashboard</a></li>
-            <li><a href="/" class="nav-bottom-option">Create New Task</a></li>
+            <li><a href="/" class="nav-bottom-option">> Create New Task</a></li>
           </ul>
         </div>
     </div>
@@ -61,19 +61,21 @@
             </div>
             <div class="task-details-buttons-row">
                 {% if task %}
-                  <input type="submit" value="Save Task"/>
+                  <input type="submit" value="Save Task" class="task-details-button"/>
                 {% else %}
-                  <input type="submit" value="Add Task"/>
+                  <input type="submit" value="Add Task" class="task-details-button"/>
                 {% endif %}
-                <form class="task-details-form" action="#" method="#">
-                    <label for="task-details-moveto" class="task-details-moveto-label">Move to...</label>
+                {% if task %}
+                      <label for="task-details-moveto" class="task-details-moveto-label">Move to...</label>
+                    {% else %}
+                      <label for="task-details-moveto" class="task-details-moveto-label">Place in...</label>
+                    {% endif %}
                     <select name="task-details-moveto" class="task-details-moveto">
                         <option class="task-details-move-option" value="todo">To-do</option>
                         <option class="task-details-move-option" value="in-development">In Development</option>
                         <option class="task-details-move-option" value="in-review">In Review</option>
                         <option class="task-details-move-option" value="completed">Completed</option>
                     </select>
-                </form>
                 <a class="task-details-button" href="/">Return to Dashboard</a>
             </div>
           </form>

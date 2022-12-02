@@ -43,35 +43,55 @@
                     To-do
                 </h3>
                 {% for task in tasks %}
+                {% if task.section == 'todo' %}
                 <a href="{{ url_for('get_task', task_id = task.id) }}" class="task-card-link-wrapper"><div class="task-card">
                     <h4 class="task-card-title"> {{ task.name }} </h4>
                     <p class="task-card-details"> {{ task.description }} </p>
-                    <form class="task-card-form" action="#" method="#">
-                        <label for="task-card-moveto" class="task-card-moveto-label">Move to...</label>
-                        <select name="task-card-moveto" class="task-card-moveto">
-                            <option class="task-card-moveto-option" value="todo">To-do</option>
-                            <option class="task-card-moveto-option" value="in-development">In Development</option>
-                            <option class="task-card-moveto-option" value="in-review">In Review</option>
-                            <option class="task-card-moveto-option" value="completed">Completed</option>
-                        </select>
-                    </form>
                 </div></a>
+                {% endif %}
                 {% endfor %}
             </div>
+            
             <div class="dashboard-category">
                 <h3 class="dashboard-category-title">
                     In Development
                 </h3>
+                {% for task in tasks %}
+                {% if task.section == 'in-development' %}
+                <a href="{{ url_for('get_task', task_id = task.id) }}" class="task-card-link-wrapper"><div class="task-card">
+                    <h4 class="task-card-title"> {{ task.name }} </h4>
+                    <p class="task-card-details"> {{ task.description }} </p>
+                </div></a>
+                {% endif %}
+                {% endfor %}
             </div>
+            
             <div class="dashboard-category">
                 <h3 class="dashboard-category-title">
                     In Review
                 </h3>
+                {% for task in tasks %}
+                {% if task.section == 'in-review' %}
+                <a href="{{ url_for('get_task', task_id = task.id) }}" class="task-card-link-wrapper"><div class="task-card">
+                    <h4 class="task-card-title"> {{ task.name }} </h4>
+                    <p class="task-card-details"> {{ task.description }} </p>
+                </div></a>
+                {% endif %}
+                {% endfor %}
             </div>
+            
             <div class="dashboard-category">
                 <h3 class="dashboard-category-title">
                     Completed
                 </h3>
+                {% for task in tasks %}
+                {% if task.section == 'completed' %}
+                <a href="{{ url_for('get_task', task_id = task.id) }}" class="task-card-link-wrapper"><div class="task-card">
+                    <h4 class="task-card-title"> {{ task.name }} </h4>
+                    <p class="task-card-details"> {{ task.description }} </p>
+                </div></a>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>
