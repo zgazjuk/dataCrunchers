@@ -156,3 +156,7 @@ ul#site-nav {
 .footer-link {
     color: #fff;
 }
+
+.flash-error-message {
+    color: rgba(250, 30, 30, 0.85);
+}

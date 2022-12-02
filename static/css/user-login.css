@@ -14,7 +14,8 @@ header{
 
 
 body{
-    height: 100vh;
+    height: fit-content;
+    min-height: 75vh;
     /*display: flex;*/
     /*align-items: center;*/
     justify-content: center;
@@ -70,7 +71,7 @@ form .form-group label{
     color: #101010;
 }
 
-form .form-group input{
+form .form-group .input{
     width: 100%;
     height: 40px;
     margin-top: 6px;
@@ -81,7 +82,7 @@ form .form-group input{
     color: #404040;
 }
 
-form .form-group input:focus{
+form .form-group .input:focus{
     border-color: #2691d9;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 10px;
 }
