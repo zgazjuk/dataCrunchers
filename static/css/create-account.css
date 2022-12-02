@@ -7,7 +7,7 @@
 }
 
 body{
-    height: 100vh;
+    height: fit-content;
     justify-content: center;
     background: rgb(34,121,195);
     background: linear-gradient(0deg, rgba(34,121,195,1) 0%, rgba(233,247,255,1) 100%);
@@ -23,8 +23,9 @@ body{
     top: 57%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 600px;
-    height: 600px;
+    width: 45%;
+    height: fit-content;
+    margin: 2.5% 0;
     padding: 40px;
     background-color: #fff;
     text-align: center;

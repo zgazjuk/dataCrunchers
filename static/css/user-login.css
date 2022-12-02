@@ -14,7 +14,8 @@ header{
 
 
 body{
-    height: 100vh;
+    height: fit-content;
+    min-height: 75vh;
     /*display: flex;*/
     /*align-items: center;*/
     justify-content: center;

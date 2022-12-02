@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import Length, DataRequired, EqualTo, Email
+from wtforms.validators import Length, DataRequired, EqualTo, Email, Regexp
 from wtforms import ValidationError
 from models import User
 from database import db
@@ -24,7 +24,7 @@ class RegisterForm(FlaskForm):
     ])
 
     confirmPassword = PasswordField('Confirm Password', validators=[
-        Length(min=6, max=10)
+        Length(min=6, max=20)
     ])
 
     submit = SubmitField('Sign Up')
@@ -50,3 +50,12 @@ class LoginForm(FlaskForm):
     def validate_email(self, field):
         if db.session.query(User).filter_by(email=field.data).count() == 0:
             raise ValidationError('Incorrect username or password.')
+
+class NewTaskForm(FlaskForm):
+    class Meta:
+        csrf = False
+
+    task_title = StringField('Title', validators=[Regexp('/^.{6,}$/', message="Title must be at least 6 characters and cannot only be whitespace."),
+                                                Length(max=60),DataRequired('Required')])
+    task_details = StringField('Title', validators=[Regexp('/^.{10,}$/', message="Title must be at least 10 characters and cannot only be whitespace."),
+                                                Length(max=1000),DataRequired('Required')])

@@ -3,14 +3,14 @@ import os                 # os is used to get environment variables IP & PORT
 from flask import Flask   # Flask is the web app that we will customize
 from flask import render_template
 from flask import request
-from flask import redirect, url_for
+from flask import redirect, url_for, flash
 from database import db
 from models import Task as Task
-from forms import RegisterForm
 from flask import session
 import bcrypt
 from models import User as User
-from forms import LoginForm
+from forms import LoginForm, NewTaskForm, RegisterForm
+import re
 
 
 app = Flask(__name__)
@@ -24,19 +24,32 @@ with app.app_context():
 
 @app.route('/')
 def dashboard():
-    tasks = db.session.query(Task).all()
-    return render_template('dashboard.html', tasks = tasks)
+    if session.get('user'):
+        current_user = session['user']
+        tasks = db.session.query(Task).all()
+        return render_template('dashboard.html', tasks = tasks, user=current_user)
+    else:
+        return redirect(url_for('user_login'))
+    
 
 @app.route('/<task_id>')
 def get_task(task_id):
     task = db.session.query(Task).filter_by(id=task_id).one()
-    return render_template('task-details.html', task = task)
+    return render_template('task-details.html', task = task, user=session['user'])
 
 @app.route('/new', methods=['GET', 'POST'])
 def new_task():
+    new_task_form = NewTaskForm()
+
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
+        # check to ensure that Title and Description fields are filled out properly;
+        # if not, flash a message to the user to fix the issue and render the new.html template again
+        if not (re.search('^.{6,}$', description) or re.search('^.{6,}$', name)):
+            flash('Title and Details fields must not be empty, and must contain more than just whitespace. Please check your input and try again.')
+            return render_template('new.html', flash=flash, user=session['user'])
+
         section = request.form['task-details-moveto']
 
         new_record = Task(name, description, False, section)
@@ -45,7 +58,7 @@ def new_task():
 
         return redirect(url_for('dashboard'))
     else:
-        return render_template('new.html')
+        return render_template('new.html', user=session['user'])
 
 @app.route('/edit/<task_id>', methods=['GET', 'POST'])
 def edit_task(task_id):
@@ -64,7 +77,7 @@ def edit_task(task_id):
         return redirect(url_for('dashboard'))
     else:
         task = db.session.query(Task).filter_by(id=task_id).one()
-        return render_template('new.html', task = task)
+        return render_template('new.html', task = task, user=session['user'])
 
 @app.route('/delete/<task_id>', methods=['POST'])
 def delete_task(task_id):
@@ -100,7 +113,7 @@ def create_account():
         # show user dashboard view
         return redirect(url_for('dashboard'))
 
-    return render_template('create_account.html', form=form)
+    return render_template('create_account.html', form=form, user=session['user'])
 
 @app.route('/login', methods=['GET', 'POST'])
 def user_login():
@@ -124,6 +137,13 @@ def user_login():
     else:
         # form did not validate or GET request
         return render_template("user_login.html", form=login_form)
+
+@app.route('/logout')
+def logout():
+    if session.get('user'):
+        session.clear()
+    
+    return redirect(url_for('user_login'))
 
 
 app.run(host=os.getenv('IP', '127.0.0.1'),port=int(os.getenv('PORT', 5000)),debug=True)
