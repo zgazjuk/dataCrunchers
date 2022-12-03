@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import Length, DataRequired, EqualTo, Email, Regexp
 from wtforms import ValidationError
 from models import User
@@ -59,3 +59,24 @@ class NewTaskForm(FlaskForm):
                                                 Length(max=60),DataRequired('Required')])
     task_details = StringField('Title', validators=[Regexp('/^.{10,}$/', message="Title must be at least 10 characters and cannot only be whitespace."),
                                                 Length(max=1000),DataRequired('Required')])
+
+class CommentForm(FlaskForm):
+    class Meta:
+        csrf = False
+
+    comment = TextAreaField('New Comment:', validators=[Length(min=1, max=256)])
+
+    submit = SubmitField('Submit New Comment')
+
+
+
+# class Comment(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     date_posted = db.Column(db.DateTime, nullable=False)
+#     content = db.Column(db.VARCHAR, nullable=False)
+#     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+
+#     def __init__(self, content, note_id, user_id):
+#         self.date_posted = datetime.date.today()
+#         self.content = content
+#         self.user_id = user_id

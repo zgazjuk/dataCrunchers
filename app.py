@@ -9,7 +9,8 @@ from models import Task as Task
 from flask import session
 import bcrypt
 from models import User as User
-from forms import LoginForm, NewTaskForm, RegisterForm
+from models import Comment as Comment
+from forms import LoginForm, NewTaskForm, RegisterForm, CommentForm
 import re
 
 
@@ -34,8 +35,10 @@ def dashboard():
 
 @app.route('/<task_id>')
 def get_task(task_id):
-    task = db.session.query(Task).filter_by(id=task_id).one()
-    return render_template('task-details.html', task = task, user=session['user'])
+    comment_form = CommentForm()
+
+    task = db.session.query(Task).filter_by(id=task_id).first()
+    return render_template('task-details.html', task = task, user=session['user'], form=comment_form)
 
 @app.route('/new', methods=['GET', 'POST'])
 def new_task():
@@ -62,10 +65,13 @@ def new_task():
 
 @app.route('/edit/<task_id>', methods=['GET', 'POST'])
 def edit_task(task_id):
+    comment_form = CommentForm()
+
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
         section = request.form['task-details-moveto']
+        print(task_id)
         task = db.session.query(Task).filter_by(id=task_id).one()
         task.name = name
         task.description = description
@@ -77,7 +83,7 @@ def edit_task(task_id):
         return redirect(url_for('dashboard'))
     else:
         task = db.session.query(Task).filter_by(id=task_id).one()
-        return render_template('new.html', task = task, user=session['user'])
+        return render_template('new.html', task = task, user=session['user'], form=comment_form)
 
 @app.route('/delete/<task_id>', methods=['POST'])
 def delete_task(task_id):
@@ -113,14 +119,14 @@ def create_account():
         # show user dashboard view
         return redirect(url_for('dashboard'))
 
-    return render_template('create_account.html', form=form, user=session['user'])
+    return render_template('create_account.html', form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def user_login():
     login_form = LoginForm() # Getting refernece to the LoginForm from forms.py
     # validate_on_submit only validates using POST
     if login_form.validate_on_submit():
-        # we know user exists. We can use one()
+        # we know user exists. can use one()
         the_user = db.session.query(User).filter_by(email=request.form['email']).one()
         # user exists check password entered matches stored password
         if bcrypt.checkpw(request.form['password'].encode('utf-8'), the_user.password):
@@ -144,6 +150,23 @@ def logout():
         session.clear()
     
     return redirect(url_for('user_login'))
+
+@app.route('/<task_id>/comment', methods=['POST'])
+def new_comment(task_id):
+    if session.get('user'):
+        comment_form = CommentForm()
+
+        if comment_form.validate_on_submit():
+            comment_text = request.form['comment']
+            new_record = Comment(comment_text, int(task_id), session['user_id'])
+            db.session.add(new_record)
+            db.session.commit()
+
+        return redirect(url_for('get_task', task_id=task_id))
+    
+    else:
+        return redirect(url_for('login'))
+
 
 
 app.run(host=os.getenv('IP', '127.0.0.1'),port=int(os.getenv('PORT', 5000)),debug=True)

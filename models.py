@@ -8,6 +8,7 @@ class Task(db.Model):
     description = db.Column("description", db.String(200))
     pinned = db.Column("pinned", db.Boolean, default=False)
     section = db.Column("section", db.String(200))
+    comments = db.relationship("Comment", backref="comment", cascade="all, delete-orphan", lazy=True)
 
     def __init__(self, name, description, pinned, section):
         self.name = name
@@ -30,3 +31,16 @@ class User(db.Model):
         self.password = password
         self.registered_on = datetime.date.today()
 
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date_posted = db.Column(db.DateTime, nullable=False)
+    content = db.Column(db.VARCHAR, nullable=False)
+    task_id = db.Column(db.Integer, db.ForeignKey("task.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    db.relationship("User", backref="userName", cascade="all, delete-orphan", lazy=True)
+
+    def __init__(self, content, task_id, user_id):
+        self.date_posted = datetime.date.today()
+        self.content = content
+        self.user_id = user_id
+        self.task_id = task_id
