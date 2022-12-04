@@ -51,13 +51,18 @@
                 {% for task in tasks %}
                 {% if task.section == 'todo' %}
                 <a href="{{ url_for('get_task', task_id = task.id) }}" class="task-card-link-wrapper"><div class="task-card">
-                    <h4 class="task-card-title"> {{ task.name }} </h4>
+                    <div class="card-header">
+                      {% if task.pinned %}
+                      <img src="https://cdn-icons-png.flaticon.com/512/484/484167.png" width="17" height="17">
+                      {% endif %}
+                      <h4 class="task-card-title"> {{ task.name }} </h4>
+                    </div>
                     <p class="task-card-details"> {{ task.description }} </p>
                 </div></a>
                 {% endif %}
                 {% endfor %}
             </div>
-            
+
             <div class="dashboard-category">
                 <h3 class="dashboard-category-title">
                     In Development
@@ -65,13 +70,18 @@
                 {% for task in tasks %}
                 {% if task.section == 'in-development' %}
                 <a href="{{ url_for('get_task', task_id = task.id) }}" class="task-card-link-wrapper"><div class="task-card">
-                    <h4 class="task-card-title"> {{ task.name }} </h4>
+                    <div class="card-header">
+                      {% if task.pinned %}
+                      <img src="https://cdn-icons-png.flaticon.com/512/484/484167.png" width="17" height="17">
+                      {% endif %}
+                      <h4 class="task-card-title"> {{ task.name }} </h4>
+                    </div>
                     <p class="task-card-details"> {{ task.description }} </p>
                 </div></a>
                 {% endif %}
                 {% endfor %}
             </div>
-            
+
             <div class="dashboard-category">
                 <h3 class="dashboard-category-title">
                     In Review
@@ -79,13 +89,18 @@
                 {% for task in tasks %}
                 {% if task.section == 'in-review' %}
                 <a href="{{ url_for('get_task', task_id = task.id) }}" class="task-card-link-wrapper"><div class="task-card">
-                    <h4 class="task-card-title"> {{ task.name }} </h4>
+                    <div class="card-header">
+                      {% if task.pinned %}
+                      <img src="https://cdn-icons-png.flaticon.com/512/484/484167.png" width="17" height="17">
+                      {% endif %}
+                      <h4 class="task-card-title"> {{ task.name }} </h4>
+                    </div>
                     <p class="task-card-details"> {{ task.description }} </p>
                 </div></a>
                 {% endif %}
                 {% endfor %}
             </div>
-            
+
             <div class="dashboard-category">
                 <h3 class="dashboard-category-title">
                     Completed
@@ -93,7 +108,12 @@
                 {% for task in tasks %}
                 {% if task.section == 'completed' %}
                 <a href="{{ url_for('get_task', task_id = task.id) }}" class="task-card-link-wrapper"><div class="task-card">
-                    <h4 class="task-card-title"> {{ task.name }} </h4>
+                    <div class="card-header">
+                      {% if task.pinned %}
+                      <img src="https://cdn-icons-png.flaticon.com/512/484/484167.png" width="17" height="17">
+                      {% endif %}
+                      <h4 class="task-card-title"> {{ task.name }} </h4>
+                    </div>
                     <p class="task-card-details"> {{ task.description }} </p>
                 </div></a>
                 {% endif %}

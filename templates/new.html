@@ -57,14 +57,10 @@
             <input type="text" name="name" value="{% if task %}{{task.name}}{% endif %}" class="new-task-title"/>
             <h3 class="task-details-section-header">Details:</h3>
               <div class="task-details-bodytext">
-                <textarea name="description" rows="6" cols="0" class="new-task-details">
-                {% if task %}
-                  {{ task.description }}
-                {% endif %}
-                </textarea>
+                <textarea name="description" rows="6" cols="0" class="new-task-details">{% if task %}{{task.description}}{% endif %}</textarea>
               </div>
               <!-- <h3 class="task-details-section-header">Comments:</h3> -->
-            
+
             <div class="task-details-buttons-row">
                 {% if task %}
                   <input type="submit" value="Save Task" class="task-details-button"/>
@@ -82,6 +78,8 @@
                         <option class="task-details-move-option" value="in-review">In Review</option>
                         <option class="task-details-move-option" value="completed">Completed</option>
                     </select>
+                <label for="task-details-pin" class="task-details-moveto-label">Pinned:</label>
+                <input name="task-details-pin" type="checkbox" {% if task and task.pinned %}checked{% endif %}/>
                 <a class="task-details-button" href="/">Return to Dashboard</a>
             </div>
           </form>

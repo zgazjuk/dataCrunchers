@@ -27,11 +27,11 @@ with app.app_context():
 def dashboard():
     if session.get('user'):
         current_user = session['user']
-        tasks = db.session.query(Task).all()
+        tasks = db.session.query(Task).order_by(Task.pinned.desc()).all()
         return render_template('dashboard.html', tasks = tasks, user=current_user)
     else:
         return redirect(url_for('user_login'))
-    
+
 
 @app.route('/<task_id>')
 def get_task(task_id):
@@ -71,11 +71,12 @@ def edit_task(task_id):
         name = request.form['name']
         description = request.form['description']
         section = request.form['task-details-moveto']
-        print(task_id)
+        pinned = request.form.get('task-details-pin')
         task = db.session.query(Task).filter_by(id=task_id).one()
         task.name = name
         task.description = description
         task.section = section
+        task.pinned = pinned == 'on'
 
         db.session.add(task)
         db.session.commit()
@@ -102,12 +103,8 @@ def create_account():
         hash_password = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
         # getting entered user data
         first_name = request.form['firstname']
-        print(first_name)
         last_name = request.form['lastname']
-        print(last_name)
         email = request.form['email']
-        print(email)
-        print(hash_password)
         # create user model
         new_user = User(first_name, last_name, email, hash_password)
         # add user to database and commit
@@ -148,7 +145,7 @@ def user_login():
 def logout():
     if session.get('user'):
         session.clear()
-    
+
     return redirect(url_for('user_login'))
 
 @app.route('/<task_id>/comment', methods=['POST'])
@@ -163,7 +160,7 @@ def new_comment(task_id):
             db.session.commit()
 
         return redirect(url_for('get_task', task_id=task_id))
-    
+
     else:
         return redirect(url_for('login'))
 
