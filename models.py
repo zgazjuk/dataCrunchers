@@ -44,3 +44,10 @@ class Comment(db.Model):
         self.content = content
         self.user_id = user_id
         self.task_id = task_id
+
+class Log(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    log = db.Column("log", db.String(200))
+
+    def __init__(self, log):
+        self.log = log

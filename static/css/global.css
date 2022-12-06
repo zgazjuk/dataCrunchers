@@ -112,6 +112,7 @@ ul#site-nav {
 	list-style-type: none;
     padding-left: 5%;
     color: #fff;
+    display: flex;
 	}
 	ul#site-nav li {
 		display: inline;
@@ -122,16 +123,19 @@ ul#site-nav {
 .nav-bottom-option {
     color: #fff;
     text-decoration: none;
-    padding: 20px 50px;
+    padding: 5px 10px;
+    margin: 0px 20px;
     font-size: larger;
     transition: all 0.15s ease 0s;
+    text-align: center;
 }
 
 .nav-bottom-option:hover {
     background-color: #fff;
     color: #000;
     transition: all 0.15s ease 0s;
-    padding-left: 65px;
+    padding-left: 12px;
+    padding-right: 12px;
 }
 
 /* Footer */

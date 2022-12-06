@@ -18,14 +18,9 @@
                 </a>
                 <p class="nav-title">CRUNCH</p>
             </div>
-            <!-- <div class="nav-right">
-                <ul class="user-nav">
-                    <li class="user-nav-link">Hi,</li>
-                    <li><a href="#" class="user-nav-link">Logout</a></li>
-                </ul>
-            </div> -->
             <div class="nav-right">
                 <ul class="user-nav">
+                    <li><a href="logs" class="user-nav-link">Logs</a></li>
                     <li><a href="#" class="user-nav-link">Hi, {{user}}</a></li>
                     <li><a href="logout" class="user-nav-link">Logout</a></li>
                 </ul>
@@ -35,8 +30,12 @@
     <div id="nav-bottom">
         <div class="table">
           <ul id="site-nav">
-            <li><a href="#" class="nav-bottom-option">> Dashboard</a></li>
+            <li><a href="/" class="nav-bottom-option">> Dashboard</a></li>
             <li><a href="new" class="nav-bottom-option">Create New Task</a></li>
+            <form method="post" action="" >
+                <input class="nav-bottom-option" type="text" placeholder="search for a task title" name="search">
+                <!-- <button class="nav-bottom-option" style="padding:20px" type="submit"></button> -->
+            </form>
           </ul>
         </div>
     </div>

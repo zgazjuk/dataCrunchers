@@ -1,0 +1,19 @@
+#log-main {
+    background: rgb(223,235,255);
+    background: radial-gradient(circle, rgba(223,235,255,1) 50%, rgba(0,88,143,0.6278886554621849) 100%);
+    min-height: 75vh;
+}
+
+.log-wrapper {
+    width: 100%;
+    justify-content: center;
+    padding-bottom: 1em;
+}
+
+.log {
+    margin: 10px;
+}
+
+.log-text {
+
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../static/css/global.css">
+    <link rel="stylesheet" href="../static/css/logs.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="nav-top">
+        <nav class="nav-new">
+            <div class="nav-left">
+                <a href="#" class="nav-logo-link">
+                    <p class="nav-logo">logo</p>
+                </a>
+                <p class="nav-title">CRUNCH</p>
+            </div>
+            <div class="nav-right">
+                <ul class="user-nav">
+                    <li><a href="logs" class="user-nav-link">Logs</a></li>
+                    <li><a href="#" class="user-nav-link">Hi, {{user}}</a></li>
+                    <li><a href="logout" class="user-nav-link">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div id="nav-bottom">
+        <div class="table">
+          <ul id="site-nav">
+            <li><a href="/" class="nav-bottom-option">> Dashboard</a></li>
+            <li><a href="new" class="nav-bottom-option">Create New Task</a></li>
+            <form method="post" action="" >
+                <input class="nav-bottom-option" type="text" placeholder="search for a task title" name="search">
+                <!-- <button class="nav-bottom-option" style="padding:20px" type="submit"></button> -->
+            </form>
+          </ul>
+        </div>
+    </div>
+
+    <!-- Dashboard main content; stories/tasks, etc -->
+    <div id="log-main">
+        <div class="log-wrapper">
+            {% for log in logs %}
+              <div class="log">
+                <h4 class="log-text"> {{ log.log }} </h4>
+              </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p class="footer-text">&copy; dataCrunchers Inc. 2022</p>
+    </footer>
+</body>
+</html>

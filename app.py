@@ -10,9 +10,9 @@ from flask import session
 import bcrypt
 from models import User as User
 from models import Comment as Comment
+from models import Log as Log
 from forms import LoginForm, NewTaskForm, RegisterForm, CommentForm
 import re
-
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flask_task_app.db'
@@ -23,15 +23,21 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def dashboard():
     if session.get('user'):
         current_user = session['user']
         tasks = db.session.query(Task).order_by(Task.pinned.desc()).all()
+        if request.method == 'POST':
+            search = request.form['search']
+            if search != '':
+                tasks = db.session.query(Task).filter(Task.name.ilike(f'%{search}%')).order_by(Task.pinned.desc()).all()
+            if tasks is None:
+                tasks = []
+
         return render_template('dashboard.html', tasks = tasks, user=current_user)
     else:
         return redirect(url_for('user_login'))
-
 
 @app.route('/<task_id>')
 def get_task(task_id):
@@ -45,8 +51,10 @@ def new_task():
     new_task_form = NewTaskForm()
 
     if request.method == 'POST':
+        current_user = session['user']
         name = request.form['name']
         description = request.form['description']
+        pinned = request.form.get('task-details-pin')
         # check to ensure that Title and Description fields are filled out properly;
         # if not, flash a message to the user to fix the issue and render the new.html template again
         if not (re.search('^.{6,}$', description) or re.search('^.{6,}$', name)):
@@ -55,8 +63,12 @@ def new_task():
 
         section = request.form['task-details-moveto']
 
-        new_record = Task(name, description, False, section)
+        new_record = Task(name, description, pinned == 'on', section)
         db.session.add(new_record)
+
+        log = Log(current_user + " created a new task with name: " + name)
+        db.session.add(log)
+
         db.session.commit()
 
         return redirect(url_for('dashboard'))
@@ -68,10 +80,12 @@ def edit_task(task_id):
     comment_form = CommentForm()
 
     if request.method == 'POST':
+        current_user = session['user']
         name = request.form['name']
         description = request.form['description']
         section = request.form['task-details-moveto']
         pinned = request.form.get('task-details-pin')
+
         task = db.session.query(Task).filter_by(id=task_id).one()
         task.name = name
         task.description = description
@@ -79,6 +93,10 @@ def edit_task(task_id):
         task.pinned = pinned == 'on'
 
         db.session.add(task)
+
+        log = Log(current_user + " edited a task with id: " + task_id)
+        db.session.add(log)
+
         db.session.commit()
 
         return redirect(url_for('dashboard'))
@@ -88,9 +106,14 @@ def edit_task(task_id):
 
 @app.route('/delete/<task_id>', methods=['POST'])
 def delete_task(task_id):
+    current_user = session['user']
     task = db.session.query(Task).filter_by(id=task_id).one()
 
     db.session.delete(task)
+
+    log = Log(current_user + " deleted a task with id: " + task_id)
+    db.session.add(log)
+
     db.session.commit()
 
     return redirect(url_for('dashboard'))
@@ -109,6 +132,10 @@ def create_account():
         new_user = User(first_name, last_name, email, hash_password)
         # add user to database and commit
         db.session.add(new_user)
+
+        log = Log("A new account was created with name: " + first_name + " " + last_name)
+        db.session.add(log)
+
         db.session.commit()
         # save the user's name to the session
         # session['user'] = first_name
@@ -148,22 +175,35 @@ def logout():
 
     return redirect(url_for('user_login'))
 
+@app.route('/logs')
+def logs():
+    if session.get('user'):
+        current_user = session['user']
+        logs = db.session.query(Log).all()
+
+        return render_template('logs.html', user = current_user, logs=logs)
+    else:
+        return redirect(url_for('user_login'))
+
 @app.route('/<task_id>/comment', methods=['POST'])
 def new_comment(task_id):
     if session.get('user'):
+        current_user = session['user']
         comment_form = CommentForm()
 
         if comment_form.validate_on_submit():
             comment_text = request.form['comment']
             new_record = Comment(comment_text, int(task_id), session['user_id'])
             db.session.add(new_record)
+
+            log = Log(current_user + " added a new comment to task with task_id: " + task_id)
+            db.session.add(log)
+
             db.session.commit()
 
         return redirect(url_for('get_task', task_id=task_id))
 
     else:
         return redirect(url_for('login'))
-
-
 
 app.run(host=os.getenv('IP', '127.0.0.1'),port=int(os.getenv('PORT', 5000)),debug=True)

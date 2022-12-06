@@ -68,15 +68,8 @@ class CommentForm(FlaskForm):
 
     submit = SubmitField('Submit New Comment')
 
+class SearchForm(FlaskForm):
+    class Meta:
+        csrf = False
 
-
-# class Comment(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     date_posted = db.Column(db.DateTime, nullable=False)
-#     content = db.Column(db.VARCHAR, nullable=False)
-#     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-
-#     def __init__(self, content, note_id, user_id):
-#         self.date_posted = datetime.date.today()
-#         self.content = content
-#         self.user_id = user_id
+    search = StringField('search')
